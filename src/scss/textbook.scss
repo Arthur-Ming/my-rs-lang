@@ -1,0 +1,259 @@
+.textbook {
+  &__content {
+    display: flex;
+    justify-content: center;
+    padding: 0px 10px;
+    @media (max-width: $md3) {
+      padding: 0px 12px;
+    }
+    @media (max-width: $md4) {
+      padding: 0px 8px;
+    }
+  }
+  &__header {
+    padding: 70px 40px 0px 40px;
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: $md2) {
+      padding: 70px 10px 0px 10px;
+    }
+    @media (max-width: $md3) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      row-gap: 20px;
+    }
+    @media (max-width: $md4) {
+      padding: 70px 10px 0px 10px;
+    }
+  }
+  &__dictionary-button {
+    position: relative;
+    flex: 0 0 200px;
+    background: $green;
+    opacity: 1;
+    z-index: 10;
+    @media (max-width: $md3) {
+      flex: 0 0 auto;
+      width: 300px;
+    }
+    span {
+      padding: 8px 10px;
+      font-family: "Roboto", sans-serif;
+      font-size: 18px;
+      line-height: 24px;
+      color: #fff;
+    }
+    &_active {
+      background: $ice_blue;
+      box-shadow: 0 0 10px rgb(255, 255, 255);
+    }
+  }
+
+  &__cards {
+    display: flex;
+    flex-wrap: wrap;
+    //  flex-direction: column;
+    justify-content: center;
+    gap: 40px 20px;
+    //calc(239px + 100 * ((100vw - 1024px) / (1920 - 1024)));
+    //  flex: 1 1 900px;
+    //  max-width: 900px;
+    padding: 40px 0px;
+    @media (max-width: $md3) {
+      flex: 1 1 100%;
+      width: 100%;
+      gap: 20px 20px;
+    }
+  }
+}
+.textbook-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 24px;
+  position: relative;
+  flex: 1 1 30%;
+  overflow: hidden;
+  z-index: 10;
+  border: 2px $gray_2 solid;
+  &_hard {
+    border: 2px rgb(202, 46, 46) solid;
+  }
+  &_studied {
+    border: 2px #fff solid;
+    opacity: 0.5;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: $green;
+    opacity: 0.5;
+    z-index: 1;
+  }
+  &_color-1 {
+    &::after {
+      background: $group-1;
+    }
+  }
+  &_color-2 {
+    &::after {
+      background: $group-2;
+    }
+  }
+  &_color-3 {
+    &::after {
+      background: $group-3;
+    }
+  }
+  &_color-4 {
+    &::after {
+      background: $group-4;
+    }
+  }
+  &_color-5 {
+    &::after {
+      background: $group-5;
+    }
+  }
+  &_color-6 {
+    &::after {
+      background: $group-6;
+    }
+  }
+  @media (max-width: 1200px) {
+    flex: 1 1 45%;
+  }
+
+  @media (max-width: $md2) {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  @media (max-width: $md3) {
+    flex: 1 1 100%;
+  }
+  &__icon {
+    width: 100%;
+    height: 260px;
+    // flex: 0 0 390px;
+    overflow: hidden;
+    border-radius: 10px;
+    flex: 0 1 auto;
+    z-index: 10;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding: 20px 25px 20px 25px;
+    flex-grow: 1;
+    z-index: 10;
+    position: relative;
+    @media (max-width: $md3) {
+      padding: 20px 12px;
+    }
+    @media (max-width: $md4) {
+      padding: 20px 8px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    column-gap: 8px;
+    font-size: 20px;
+    line-height: 24px;
+    @media (max-width: $md2) {
+      font-size: 20px;
+      line-height: 24px;
+    }
+    @media (max-width: $md3) {
+      font-size: 18px;
+      line-height: 24px;
+    }
+    @media (max-width: $md4) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  &__word {
+  }
+
+  &__transcription {
+  }
+
+  &__word-translate {
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    font-weight: 200;
+    flex-grow: 1;
+  }
+
+  &__meaning {
+  }
+
+  &__text-meaning {
+  }
+
+  &__example {
+  }
+
+  &__text-example {
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    position: relative;
+  }
+
+  &__button {
+    span {
+      font-family: "Roboto", sans-serif;
+      font-weight: 300;
+      padding: 5px 10px;
+      color: #fff;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+  &__button_active {
+    background: $blue;
+  }
+
+  &__select {
+    display: flex;
+    column-gap: 10px;
+  }
+
+  &__audio {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    position: absolute;
+    left: calc(100% - 35px);
+    top: calc(100% - 35px);
+  }
+}
+.textbook-card__audio_active {
+  color: $blue;
+}
