@@ -1,0 +1,34 @@
+body {
+   color: $gray_1;
+   //font-family: "Arial", sans-serif;
+   // font-family: "Neucha", sans-serif;
+   font-family: "Roboto", sans-serif; //"Steppe", sans-serif;
+   //  background-color: $bg;
+   background: $gray_2;
+   opacity: 1;
+   transition: all 0.3s ease 0s;
+}
+
+#app {
+   width: 100%;
+   min-height: 100%;
+}
+.wrapper {
+   background: #0000007c;
+   position: relative;
+   width: 100%;
+   min-height: 100%;
+   display: flex;
+   flex-direction: column;
+
+   &__box {
+      max-width: $maxWidthContainer + px;
+      margin: 0 auto;
+   }
+}
+main {
+   flex: 1 0 auto;
+}
+.lock {
+   overflow: hidden;
+}

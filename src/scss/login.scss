@@ -1,0 +1,134 @@
+.login {
+  background: url("../assets/img/bg/01.jpg") 50% 0 / cover no-repeat;
+  display: flex;
+  justify-content: center;
+
+  min-height: 100vh;
+  padding: 0px 0px 40px 0px;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #000;
+    opacity: 0.87;
+    z-index: 0;
+  }
+  &__err {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px 0px 0px 5px;
+    font-weight: 300;
+    color: orange;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 2px);
+  }
+  &__content {
+    position: relative;
+    margin-top: 80px;
+    height: 450px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    background: $gray_2;
+    padding: 40px;
+    border-radius: 10px;
+    z-index: 50;
+    &_reg {
+      height: 540px;
+    }
+
+    @media (max-width: 400px) {
+      width: 100%;
+      padding: 20px 10px;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  &__forms {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  &__form {
+  }
+
+  &__label {
+    font-size: 18px;
+    line-height: 24px;
+    padding: 5px;
+  }
+
+  &__input {
+    margin-top: 5px;
+    position: relative;
+    input {
+      width: 100%;
+
+      border-radius: 10px;
+      font-size: 18px;
+      line-height: 30px;
+      padding: 5px 10px 5px 15px;
+    }
+  }
+
+  &__button {
+    margin: 0px auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 250px;
+    span {
+      font-family: "Roboto", sans-serif;
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  &__append {
+    font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    column-gap: 15px;
+    @media (max-width: 400px) {
+      flex-direction: column;
+      align-items: center;
+      row-gap: 10px;
+    }
+  }
+
+  &__reg {
+    color: $blue;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease 0s;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background: $ice_blue;
+      left: 50%;
+      transform: translateX(-50%);
+      top: calc(100% + 3px);
+      transition: all 0.3s ease 0s;
+    }
+    &:hover::after {
+      width: 80%;
+    }
+    &:hover {
+      color: $ice_blue;
+    }
+  }
+}

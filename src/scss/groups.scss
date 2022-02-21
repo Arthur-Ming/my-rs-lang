@@ -1,0 +1,59 @@
+.groups {
+  &__content {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 22px;
+    line-height: 24px;
+    @media (max-width: $md3) {
+      display: none;
+    }
+  }
+
+  &__items {
+    display: flex;
+    column-gap: 5px;
+  }
+
+  &__item {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: $black;
+    font-weight: 600;
+    &:hover {
+      background: $ice_blue;
+    }
+    &_active {
+      background: $ice_blue;
+      box-shadow: 0 0 10px rgb(255, 255, 255);
+    }
+    &_color-1 {
+      background: $group-1;
+    }
+    &_color-2 {
+      background: $group-2;
+    }
+    &_color-3 {
+      background: $group-3;
+    }
+    &_color-4 {
+      background: $group-4;
+    }
+    &_color-5 {
+      background: $group-5;
+    }
+    &_color-6 {
+      background: $group-6;
+    }
+  }
+}
