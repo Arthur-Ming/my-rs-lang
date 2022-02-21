@@ -3,10 +3,6 @@ import Footer from './components/footer';
 import Header from './components/header';
 import Component from './core/component';
 import { IComponent } from './interfaces';
-import AudioCall from './pages/audio-call';
-import Login from './pages/login';
-import Sprint from './pages/sprint';
-import Start from './pages/start';
 import Router from './router';
 import store from './store';
 
@@ -17,7 +13,7 @@ const template = (): string => `
   <footer class="footer" data-element="footer"></footer>
 </div>
 `;
-console.log('app')
+
 const router = Router.getInstance()
 
 export default class App extends Component implements IComponent {
@@ -34,23 +30,16 @@ export default class App extends Component implements IComponent {
         await httpClient.getUser({
           id: store.userData.userId
         })
-        //store.isSignIn = true
       } catch (error) {
         store.isSignIn = false
-        console.log('error in app', error)
       }
-
-
-
 
     this.components = {
       header: new Header(),
-      //  content: new Start(),
       footer: new Footer()
     }
 
     super.renderComponents(this.components)
-    console.log(store.currentPage.getState())
     router.route({ to: store.currentPage.getState() })
 
   }
@@ -59,5 +48,4 @@ export default class App extends Component implements IComponent {
     this.initComponents()
     return this.element;
   }
-
 }
