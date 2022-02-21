@@ -10,8 +10,8 @@ const router = Router.getInstance()
 export default class Logo extends Component {
 
   onClick = () => {
-
-    router.route({ to: 'start' })
+    if (store.currentPage.getState() !== 'start')
+      router.route({ to: 'start' })
   }
 
   render() {
