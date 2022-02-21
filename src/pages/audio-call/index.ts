@@ -11,7 +11,6 @@ const template = () => `
   <div class="audio-call__content wrapper__box" data-element='audio-call-content'></div>
 </div>
 `
-
 export default class AudioCall extends Component {
 
   level: number = store.textbook.getState().group
@@ -23,7 +22,7 @@ export default class AudioCall extends Component {
   onSprintLevelSelected = (event: CustomEvent) => {
 
     this.level = Number(event.detail)
-    console.log(this.level)
+
   }
 
   onAudioCallStart = () => {
@@ -44,9 +43,7 @@ export default class AudioCall extends Component {
       'audio-call-content': new SprintResults({ results: event.detail })
     }
     super.renderComponents(this.components)
-
   }
-
 
   initComponents() {
 
@@ -58,13 +55,11 @@ export default class AudioCall extends Component {
     this.initEventListeners()
   }
 
-
   render() {
     super.render(template())
     this.initComponents()
     return this.element
   }
-
 
   private initEventListeners(): void {
     if (this.subElements && this.subElements['audio-call-content']) {

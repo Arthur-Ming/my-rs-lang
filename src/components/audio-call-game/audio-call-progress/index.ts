@@ -20,11 +20,8 @@ export default class AudioCallProgress extends Component implements IAudioCallPr
   render() {
     super.render(template())
     this.element && this.element.append(...items)
-    console.log(items)
-    //  console.log(this.renderItems())
     return this.element
   }
-
 
   updata(answers: { [key: string]: boolean; }): void {
     const values = Object.values(answers)

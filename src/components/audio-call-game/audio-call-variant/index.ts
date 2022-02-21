@@ -42,6 +42,7 @@ export default class AudioCallVariant extends Component implements IAudioCallVar
     if (this.element)
       (<HTMLButtonElement>this.element).disabled = true
   }
+
   highlight(id: string) {
     if (this.word.id === id) {
       this.element && this.element.classList.add('audio-call__variant_true')
@@ -49,6 +50,7 @@ export default class AudioCallVariant extends Component implements IAudioCallVar
       this.element && this.element.classList.add('audio-call__variant_false')
     }
   }
+
   initEventListeners() {
     this.element && this.element.addEventListener('click', this.onClick as unknown as EventListener)
   }

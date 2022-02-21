@@ -7,9 +7,7 @@ import store from "../../store";
 import emit from "../../utils/emit";
 import getRandomInt from "../../utils/getRandomInt";
 import httpClient, { BASE } from "../../api/httpClient";
-import withLouding from "../../utils/withLouding";
 import shuffle from "../../utils/shuffle";
-import { IComponent } from "../../interfaces";
 import AudioCallHeader, { IAudioCallHeader } from "./audio-call-header";
 import getAudioCallIcon from "./getAudioCallIcon";
 import getAudioCallShowAnswer from "./getAudioCallShowAnswer";
@@ -17,7 +15,8 @@ import AudioCallProgress, { IAudioCallProgress } from "./audio-call-progress";
 
 const template = () => `
 <div class="audio-call__game">
-   <div class="sprint-game__sound-icon ${store.audioCallSound ? 'sprint-game__sound-icon_active' : ''} " 
+   <div class="sprint-game__sound-icon audio-call__sound-icon
+        ${store.audioCallSound ? 'sprint-game__sound-icon_active' : ''} " 
         data-element='sprint-sound'
     data-tooltip='Звуковое сопровождение'>
       <svg class="sprint-game__sound-icon_act"  viewBox="0 0 24 24">
@@ -38,8 +37,7 @@ const template = () => `
   </div>
 </div>
 `
-//audio-call_unknown
-// <div class="audio-call__call"  data-audio-call-voice>${audioCallIcon()}</div>
+
 const WORDS_ON_PAGE = 20
 const PAGES_NUM = 30
 
@@ -54,17 +52,16 @@ export default class AudioCallGame extends Component {
   audioCallVariants!: IAudioCallVariant[]
   pages: number[] = []
   answers: { [key: string]: boolean } = {}
-  level: number = 0
+  level = 0
   currentTrueAnswer!: { word: string, wordTranslate: string, id: string, audio: string, image: string }
   currentVarints: { word: string, wordTranslate: string, id: string, audio: string, image: string }[] = []
 
-  indexOfCurrentTrueAnswer: number = 0
+  indexOfCurrentTrueAnswer = 0
   audio = new Audio()
   sound = new Audio()
 
   onSoundClick = (event: { target: any; }) => {
-    // event.preventDefault()
-    const target = event.target.closest('[data-element]');
+      const target = event.target.closest('[data-element]');
     target.classList.toggle('sprint-game__sound-icon_active')
     store.audioCallSound = !store.audioCallSound
   }
@@ -81,7 +78,7 @@ export default class AudioCallGame extends Component {
     if (key === 'Enter') {
       event.preventDefault()
       if (this.subElements && this.subElements['audio-call-buttons']) {
-        let elem = this.subElements['audio-call-buttons'].classList.contains('audio-call_unknown') ?
+        const elem = this.subElements['audio-call-buttons'].classList.contains('audio-call_unknown') ?
           this.subElements['audio-call-buttons'].querySelector('[data-audio-call-next]') :
           this.subElements['audio-call-buttons'].querySelector('[data-audio-call-unknow]')
         if (elem)
@@ -145,7 +142,6 @@ export default class AudioCallGame extends Component {
   }: { level?: number }) {
     super()
     this.level = level ?? 1
-
   }
 
   async init() {
@@ -155,7 +151,6 @@ export default class AudioCallGame extends Component {
     this.getLevel()
     await this.getData()
     this.getRound()
-
   }
 
   initComponents() {
@@ -312,7 +307,6 @@ export default class AudioCallGame extends Component {
       if (varintsIndexes.length === 5) {
         shuffle(varintsIndexes)
         return varintsIndexes
-
       }
     }
   }
@@ -371,7 +365,5 @@ export default class AudioCallGame extends Component {
 
     this.element &&
       window.addEventListener('keydown', this.onKeyDown as unknown as EventListener)
-
   }
-
 }
