@@ -1,7 +1,7 @@
 import Component from '../../core/component';
 import { IComponent } from '../../interfaces';
 
-const template = (message: string, type: string = 'success'): string => `
+const template = (message: string, type = 'success'): string => `
 <div class="notification notification_${type}">
   <div class="notification__wrapper">
     <div class="notification__header _hidden"></div>
@@ -19,7 +19,6 @@ type NotificationParams = {
 export interface INotification extends IComponent {
   show(elem: HTMLElement): void
 }
-
 
 export default class Notification extends Component implements INotification {
 
