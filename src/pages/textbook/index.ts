@@ -26,9 +26,6 @@ const templete = () => `
        data-element='pagination'></div>
 </div>
 `
-
-
-
 export default class Textbook extends Component implements IComponent {
 
   private components!: {
@@ -58,12 +55,12 @@ export default class Textbook extends Component implements IComponent {
       group: DICTIONARY
     })
     this.components.groups.removeActive()
+    this.update()
   }
 
   async initComponents() {
 
     const data = await this.getData()
-    console.log(data)
 
     this.components = {
       'textbook-view': new TextbookView({ cards: data }),
@@ -83,13 +80,15 @@ export default class Textbook extends Component implements IComponent {
   async getData() {
 
     const { page, group } = store.textbook.getState()
+
     if (group === DICTIONARY) {
+      console.log('gic')
       const dictionaryWords = store.dictionary.getState()
       const data = await Promise.all(
         Object.keys(dictionaryWords)
           .filter(id => dictionaryWords[id])
           .map(id => httpClient.getWord({ id })))
-      console.log(data)
+
       return data
 
     }
@@ -112,6 +111,5 @@ export default class Textbook extends Component implements IComponent {
     if (this.subElements) {
       this.subElements.dictionary.addEventListener('click', this.onDictionaryClick as unknown as EventListener)
     }
-
   }
 }

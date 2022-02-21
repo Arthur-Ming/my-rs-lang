@@ -8,7 +8,6 @@ export interface ITextbookView extends IComponent {
   updata(cards: CardType[]): void
 }
 
-
 const templete = () => `<div class="textbook__cards"></div>`
 
 export default class TextbookView extends Component implements ITextbookView {
@@ -41,6 +40,11 @@ export default class TextbookView extends Component implements ITextbookView {
   updata(cards: CardType[]): void {
     this.element && (this.element.innerHTML = '')
     this.cards = cards
+    if (!this.cards.length) {
+      this.element && this.element.append(createElement(`
+      <span>Здесь пока пусто :-(</span>
+      `))
+    }
     this.renderCards(cards)
   }
 }

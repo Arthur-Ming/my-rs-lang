@@ -85,7 +85,7 @@ export default class TextbookCard extends Component {
 
   private card: CardType
   private audio: HTMLAudioElement
-  private isAudioActive: boolean = false
+  private isAudioActive = false
 
   onStudiedClick = () => {
     if (this.element) {
@@ -113,8 +113,6 @@ export default class TextbookCard extends Component {
       wordId: this.card.id,
       isSelected
     })
-
-    console.log(store.dictionary.getState())
   }
 
   onRemove = () => {
@@ -145,7 +143,6 @@ export default class TextbookCard extends Component {
       this.audio.currentTime = 0
       this.subElements && this.subElements.audio.classList.remove('textbook-card__audio_active')
     }
-
   }
 
   onAudioClick = () => {
@@ -189,11 +186,8 @@ export default class TextbookCard extends Component {
         this.subElements.hard.addEventListener('click', this.onHardClick as unknown as EventListener);
       this.subElements['remove-card'] &&
         this.subElements['remove-card'].addEventListener('click', this.onRemove as unknown as EventListener);
-
     }
 
     store.activeAudioCard.subscribe(AUDIO_ACTIVE, this.toggleAudio)
-
-    //  this.element && 
   }
 }
