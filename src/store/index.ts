@@ -1,21 +1,20 @@
 import reducer from "./reducer"
 import createStore from "../utils/create-store"
 
-
-
 class Store {
   private static instance: null | Store = null
-  defaultDictionaryItem: { [wordId: string]: boolean } = {
-    /*  "5e9f5ee35eb9e72bc21af4a0": true,
-     "5e9f5ee35eb9e72bc21af4a2": true,
-     "5e9f5ee35eb9e72bc21af4a1": false */
-  }
+  defaultDictionaryItem: { [wordId: string]: boolean } = {}
 
   userData: { [data: string]: string } = {
     token: "",
     refreshToken: "",
     userId: "",
     name: ""
+  }
+
+  textbookData = {
+    page: 0,
+    group: 0
   }
 
   static getInstance() {
@@ -29,10 +28,7 @@ class Store {
   }
 
   activeAudioCard = createStore(reducer.audio, '')
-  textbook = createStore(reducer.textbook, {
-    page: 0,
-    group: 0
-  })
+  textbook = createStore(reducer.textbook, this.textbookData)
 
   currentPage = createStore(reducer.nav, 'start')
 
@@ -49,23 +45,37 @@ class Store {
     localStorage.setItem('userData', JSON.stringify(this.userData));
     localStorage.setItem('isSignIn', isSignIn);
     localStorage.setItem('currentPage', this.currentPage.getState());
-
+    localStorage.setItem('textbookData', JSON.stringify(this.textbook.getState()));
   };
 
   async getLocalStorage() {
 
-    const localStorageItem: string | null = localStorage.getItem('userData')
+    const localStorageItem: string | null = localStorage.getItem('userData');
+    const localStorageTextbookData = localStorage.getItem('textbookData')
+
+
     this.isSignIn = Boolean(localStorage.getItem('isSignIn'))
     const page = localStorage.getItem('currentPage')
     this.currentPage = createStore(reducer.nav, page ?? 'start')
 
-    if (!localStorageItem) return
+    if (localStorageItem) {
+      const userData = await JSON.parse(localStorageItem);
 
-    const userData = await JSON.parse(localStorageItem);
+      if (userData)
+        this.userData = userData;
+    }
 
-    if (userData)
-      this.userData = userData;
+    if (localStorageTextbookData) {
+      const textbookData = await JSON.parse(localStorageTextbookData);
+
+      if (textbookData) {
+        this.textbookData = textbookData;
+        this.textbook = createStore(reducer.textbook, this.textbookData)
+      }
+    }
   }
+
+
 
   initEventListeners() {
     window.addEventListener('beforeunload', this.setLocalStorage);
@@ -76,8 +86,3 @@ class Store {
 const store = Store.getInstance()
 
 export default store
-
-/* "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGRmZDhlNzI1MTU1MDAxNWEyMTA2OSIsImlhdCI6MTY0NTA4NDkxNCwiZXhwIjoxNjQ1MDk5MzE0fQ.fCxc5GPq-ObVtcSxgfyq5Zm-dmtDSackdhtyo_8gFQY",
-"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGRmZDhlNzI1MTU1MDAxNWEyMTA2OSIsInRva2VuSWQiOiJiN2Y4NjBkOS02YmU3LTQ5MzktOTQxZC1jNTc2ZGYxNzJiOWYiLCJpYXQiOjE2NDUwODQ5MTQsImV4cCI6MTY0NTEwMTExNH0.-i7YyGCoqgaeNqJNpssO_gYNZdKRCaY0jY_gwySCPBg",
-"userId": "620dfd8e7251550015a21069",
-"name": "art" */

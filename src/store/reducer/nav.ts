@@ -6,16 +6,16 @@ export default function (state: string, action: { type: string, page: string }) 
 
   switch (type) {
     case PAGE_CHANGE:
-      {
+    {
 
-        if (page === 'textbook') {
-          store.sprintMode = 'textbook'
-        }
-        if (page === 'start') {
-          store.sprintMode = 'free'
-        }
-        return page
+      if (page === 'textbook') {
+        store.sprintMode = 'textbook'
       }
+      if (page === 'start') {
+        store.sprintMode = 'free'
+      }
+      return page
+    }
     default:
       return state;
   }
