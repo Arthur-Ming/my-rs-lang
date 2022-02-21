@@ -51,7 +51,8 @@ export default class SprintEntry extends Component implements IComponent {
 
   constructor({ entry }: { entry: string }) {
     super()
-    this.isLevelSelected = (store.sprintMode === 'textbook') ? true : false
+    this.isLevelSelected = (store.sprintMode === 'textbook' &&
+      store.textbook.getState().group !== 6) ? true : false
     this.entry = entry
   }
 
