@@ -66,9 +66,9 @@ const template = () => `
 `
 
 export default class Start extends Component {
-    render() {
-        super.render(template())
-        return this.element
-    }
+  render() {
+    super.render(template())
+    return this.element
+  }
 
 }
