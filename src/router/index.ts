@@ -14,25 +14,17 @@ export default class Router {
     return this.instance;
   }
 
-  routes: { pattern: RegExp, path: string }[] = [];
-
-  notFoundPagePath: string = '';
-
-
   private constructor() { }
 
   page: IAsyncComponent | IComponent | null = null;
 
   async route({ to }: { to: string }) {
 
-    //if (to === store.currentPage.getState()) return
-
     const { default: Page } = await import(`../pages/${to}/index.ts`);
 
     const newPage: IAsyncComponent | IComponent = new Page();
 
     const element: Element | null = await newPage.render();
-
 
     renderPage({
       from: this.page,
@@ -45,13 +37,5 @@ export default class Router {
       type: PAGE_CHANGE,
       page: to
     })
-
   }
-
-
-
-
-
-
-
 }
