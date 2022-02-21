@@ -2,16 +2,31 @@
   &__content {
   }
   &__game {
-    padding: 60px 80px;
+    padding: 90px 80px 60px 80px;
     display: flex;
     flex-direction: column;
     row-gap: 30px;
     justify-content: center;
-    min-width: 1000px;
+    width: 1000px;
     margin: 0px auto;
     position: relative;
+    @media (max-width: 1000px) {
+      padding: 90px 20px 60px 20px;
+      width: 100%;
+    }
+    @media (max-width: $md3) {
+      padding: 90px 10px 60px 10px;
+    }
+    @media (max-width: 520px) {
+      padding: 95px 10px 60px 10px;
+    }
   }
-
+  &__sound-icon {
+    top: 80px;
+    @media (max-width: 520px) {
+      top: 55px;
+    }
+  }
   &__header {
     display: flex;
     justify-content: center;
@@ -53,6 +68,13 @@
     display: flex;
     justify-content: center;
     column-gap: 10px;
+    @media (max-width: $md3) {
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    @media (max-width: 520px) {
+      gap: 25px;
+    }
   }
 
   &__variant {
@@ -68,6 +90,9 @@
     color: $black;
     transition: all 0.3s ease 0s;
     border: 2px solid $green;
+    @media (max-width: 520px) {
+      flex: 1 1 100%;
+    }
     &:disabled {
       opacity: 0.7;
     }
@@ -164,7 +189,7 @@
       height: 2px;
       left: 0;
       top: 0;
-      background: red;
+      background: $white;
       left: 0;
       top: 0;
     }
@@ -178,11 +203,18 @@
   display: flex;
   justify-content: center;
   column-gap: 10px;
+  @media (max-width: 520px) {
+    column-gap: 5px;
+  }
   &__item {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background: $gray;
+    @media (max-width: 520px) {
+      width: 7px;
+      height: 7px;
+    }
     &_true {
       background: $green;
     }
