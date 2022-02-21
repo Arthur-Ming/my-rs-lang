@@ -43,12 +43,12 @@ const router = Router.getInstance()
 
 export default class Registration extends Component {
 
-  password: string = ''
-  email: string = ''
-  name: string = ''
+  password = ''
+  email = ''
+  name = ''
 
   onLogin = () => {
-    console.log('login')
+
     router.route({ to: 'login' })
   }
 
@@ -86,20 +86,12 @@ export default class Registration extends Component {
       return
     }
 
-
-    const res = await httpClient.createUser({
+    await httpClient.createUser({
       email: this.email,
       password: this.password,
       name: this.name
     })
 
-    console.log(res)
-    /*{
-    "id": "620dfd8e7251550015a21069",
-    "name": "art",
-    "email": "arthurming7@gmail.com"
-    }
-    */
   }
 
   render() {
@@ -125,6 +117,5 @@ export default class Registration extends Component {
     if (this.subElements && this.subElements['reg-user-name']) {
       this.subElements['reg-user-name'].addEventListener('input', this.onNameInput as unknown as EventListener)
     }
-    //reg-user-name
   }
 }

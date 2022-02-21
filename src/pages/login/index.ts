@@ -41,8 +41,8 @@ const router = Router.getInstance()
 
 export default class Login extends Component {
 
-  password: string = ''
-  email: string = ''
+  password = ''
+  email = ''
 
   onEmailInput = (event: { target: { value: string; }; }) => {
     this.email = event.target.value.trim()
@@ -58,7 +58,6 @@ export default class Login extends Component {
 
   onSubmit = async (event: { preventDefault: Function }) => {
     event.preventDefault()
-    console.log(validateEmail(this.email))
 
     if (!validateEmail(this.email)) {
       this.subElements && (this.subElements['email-err'].textContent = 'не валидный email')
@@ -80,23 +79,21 @@ export default class Login extends Component {
         message: 'Авторизация прошла успешно',
         duration: 3000
       }).show();
-      //  store.isSignIn = true
 
       store.currentPage.dispatch({
         type: PAGE_CHANGE,
         page: 'start'
       })
+
       store.userData = {
         token, refreshToken, userId, name
       }
-      /*  router.route({
-         to: 'start'
-       }) */
+
       store.isSignIn = true
       location.reload()
 
     } catch (error) {
-      console.log(error)
+
       this.subElements && (this.subElements['email-err'].textContent = 'не верный логин или пароль')
       new Notification({
         message: 'Авторизация не выполнена!',
@@ -105,24 +102,10 @@ export default class Login extends Component {
       }).show();
       store.isSignIn = false
     }
-
-
-
-
-    /*
-    {
-    "message": "Authenticated",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGRmZDhlNzI1MTU1MDAxNWEyMTA2OSIsImlhdCI6MTY0NTA4NDkxNCwiZXhwIjoxNjQ1MDk5MzE0fQ.fCxc5GPq-ObVtcSxgfyq5Zm-dmtDSackdhtyo_8gFQY",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGRmZDhlNzI1MTU1MDAxNWEyMTA2OSIsInRva2VuSWQiOiJiN2Y4NjBkOS02YmU3LTQ5MzktOTQxZC1jNTc2ZGYxNzJiOWYiLCJpYXQiOjE2NDUwODQ5MTQsImV4cCI6MTY0NTEwMTExNH0.-i7YyGCoqgaeNqJNpssO_gYNZdKRCaY0jY_gwySCPBg",
-    "userId": "620dfd8e7251550015a21069",
-    "name": "art"
-    }
-    
-    */
   }
 
   onReg = () => {
-    console.log('go reg')
+
     router.route({ to: 'registration' })
   }
 
