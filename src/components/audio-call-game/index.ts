@@ -61,7 +61,7 @@ export default class AudioCallGame extends Component {
   sound = new Audio()
 
   onSoundClick = (event: { target: any; }) => {
-      const target = event.target.closest('[data-element]');
+    const target = event.target.closest('[data-element]');
     target.classList.toggle('sprint-game__sound-icon_active')
     store.audioCallSound = !store.audioCallSound
   }
@@ -266,6 +266,7 @@ export default class AudioCallGame extends Component {
   private getLevel() {
     if (store.sprintMode === 'textbook') {
       const { group } = store.textbook.getState()
+      if (group === 6) return this.level
       this.level = group
     }
 

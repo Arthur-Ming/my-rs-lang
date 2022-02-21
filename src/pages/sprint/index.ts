@@ -23,6 +23,7 @@ export default class Sprint extends Component implements IComponent {
   onSprintLevelSelected = (event: CustomEvent) => {
 
     this.level = Number(event.detail)
+    console.log(this.level)
   }
 
   onSprintStart = () => {

@@ -170,6 +170,7 @@ export default class SprintGame extends Component {
   private getLevel() {
     if (store.sprintMode === 'textbook') {
       const { group } = store.textbook.getState()
+      if (group === 6) return this.level
       this.level = group
     }
 
