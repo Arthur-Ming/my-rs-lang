@@ -2,6 +2,8 @@ import Component from "../../core/component";
 import Router from "../../router";
 import httpClient from "../../api/httpClient";
 import { validateEmail, validateName, validatePassword } from "../../utils/validate";
+import store from "../../store";
+import { PAGE_CHANGE } from "../../store/constants";
 
 const template = () => `
 <div class="login">
@@ -86,18 +88,48 @@ export default class Registration extends Component {
       return
     }
 
-    await httpClient.createUser({
-      email: this.email,
-      password: this.password,
-      name: this.name
-    })
+    console.log(this.email)
+    console.log(this.password)
+    console.log(this.name)
+    try {
+      await httpClient.createUser({
+        email: this.email,
+        password: this.password,
+        name: this.name
+      })
 
+      await this.signIn()
+    } catch (error: any) {
+      if (error.message === 'Error 417: Expectation Failed') {
+        await this.signIn()
+      }
+    }
   }
 
   render() {
     super.render(template())
     this.initEventListeners()
     return this.element
+  }
+
+  signIn = async () => {
+    try {
+      const { token, refreshToken, userId, name } = await httpClient.signin({
+        email: this.email,
+        password: this.password
+      })
+      store.currentPage.dispatch({
+        type: PAGE_CHANGE,
+        page: 'start'
+      })
+      store.userData = {
+        token, refreshToken, userId, name
+      }
+      store.isSignIn = true
+      location.reload()
+    } catch (error) {
+
+    }
   }
 
   private initEventListeners(): void {

@@ -16,7 +16,7 @@ export default async function (url: string, params?: RequestInit) {
   let body;
 
   if (!response.ok) {
-    console.log('!!!!')
+
     let errorText = response.statusText; // Not Found (for 404)
 
 
@@ -49,14 +49,14 @@ export class FetchError extends Error {
     super(message);
     this.response = response;
     this.body = body;
-    console.log('FetchError')
+
   }
 }
 
 // handle uncaught failed fetch through
 window.addEventListener('unhandledrejection', event => {
   if (event.reason instanceof FetchError) {
-    // throw Error('ggfffg')
+
     alert(event.reason.message);
   }
 });

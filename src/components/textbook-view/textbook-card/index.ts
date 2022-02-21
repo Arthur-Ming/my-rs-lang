@@ -1,4 +1,4 @@
-import { BASE } from "../../../api/httpClient";
+import httpClient, { BASE } from "../../../api/httpClient";
 import Component from "../../../core/component";
 import { CardType } from "../../../types";
 import store from "../../../store";
@@ -87,7 +87,8 @@ export default class TextbookCard extends Component {
   private audio: HTMLAudioElement
   private isAudioActive = false
 
-  onStudiedClick = () => {
+  onStudiedClick = async () => {
+    await this.deleteWord()
     if (this.element) {
       this.element.classList.remove('textbook-card_hard')
       this.element.classList.toggle('textbook-card_studied')
@@ -98,7 +99,7 @@ export default class TextbookCard extends Component {
     }
   }
 
-  onHardClick = () => {
+  onHardClick = async () => {
     if (this.element) {
       this.element.classList.remove('textbook-card_studied')
       this.element.classList.toggle('textbook-card_hard')
@@ -108,6 +109,16 @@ export default class TextbookCard extends Component {
       this.subElements?.studied.classList.remove('textbook-card__button_active')
     }
     const isSelected = this.element && this.element.classList.contains('textbook-card_hard')
+
+    try {
+      await httpClient.creatUserWords({
+        id: store.userData.userId,
+        wordId: this.card.id
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
     store.dictionary.dispatch({
       type: HARD_WORD_SELECTED,
       wordId: this.card.id,
@@ -115,12 +126,8 @@ export default class TextbookCard extends Component {
     })
   }
 
-  onRemove = () => {
-    store.dictionary.dispatch({
-      type: HARD_WORD_SELECTED,
-      wordId: this.card.id,
-      isSelected: false
-    })
+  onRemove = async () => {
+    await this.deleteWord()
     this.destroy()
   }
 
@@ -128,6 +135,21 @@ export default class TextbookCard extends Component {
     super()
     this.card = card
     this.audio = new Audio(`${BASE}${card.audio}`);
+  }
+  deleteWord = async () => {
+    store.dictionary.dispatch({
+      type: HARD_WORD_SELECTED,
+      wordId: this.card.id,
+      isSelected: false
+    })
+    try {
+      await httpClient.deleteUserWords({
+        id: store.userData.userId,
+        wordId: this.card.id
+      })
+    } catch (error) {
+
+    }
   }
 
   render() {

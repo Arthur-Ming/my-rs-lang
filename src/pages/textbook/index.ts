@@ -4,8 +4,11 @@ import { IComponent } from "../../interfaces";
 import Pagination from "../../components/pagination";
 import Groups, { IGroups } from "../../components/groups";
 import store from "../../store";
-import { GROUP_SELECT, PAGE_DOUBLENEXT, PAGE_DOUBLEPREV, PAGE_NEXT, PAGE_PREV } from "../../store/constants";
+import { GROUP_SELECT, HARD_WORD_SELECTED, PAGE_DOUBLENEXT, PAGE_DOUBLEPREV, PAGE_NEXT, PAGE_PREV } from "../../store/constants";
 import httpClient from "../../api/httpClient";
+import Router from "../../router";
+
+const router = Router.getInstance()
 
 const DICTIONARY = 6
 
@@ -60,6 +63,10 @@ export default class Textbook extends Component implements IComponent {
 
   async initComponents() {
 
+    if (store.isSignIn) {
+      await this.getDictionaryWords()
+    }
+
     const data = await this.getData()
 
     this.components = {
@@ -77,20 +84,45 @@ export default class Textbook extends Component implements IComponent {
     return this.element
   }
 
+  async getDictionaryWords() {
+    const data = await httpClient.getUserWords({ id: store.userData.userId })
+
+    const words = await Promise.all(
+      data.map((word: { [key: string]: string }) => httpClient.getWord({ id: word.wordId })));
+
+    data.forEach((word: { [key: string]: string }) => {
+      store.dictionary.dispatch({
+        type: HARD_WORD_SELECTED,
+        wordId: word.wordId,
+        isSelected: true
+      })
+    })
+    return words
+  }
+
   async getData() {
 
     const { page, group } = store.textbook.getState()
 
     if (group === DICTIONARY) {
-      console.log('gic')
-      const dictionaryWords = store.dictionary.getState()
-      const data = await Promise.all(
-        Object.keys(dictionaryWords)
-          .filter(id => dictionaryWords[id])
-          .map(id => httpClient.getWord({ id })))
+      if (store.isSignIn) {
+        const dictionaryWords = store.dictionary.getState()
+        const data = await Promise.all(
+          Object.keys(dictionaryWords)
+            .filter(id => dictionaryWords[id])
+            .map(id => httpClient.getWord({ id })))
 
-      return data
+        return data
+      }
 
+      store.textbook.dispatch({
+        type: GROUP_SELECT,
+        group: 0
+      })
+
+      router.route({
+        to: 'textbook'
+      })
     }
 
     const data = await httpClient.getWords({ page: page, group: group })

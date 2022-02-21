@@ -21,54 +21,92 @@ export default {
   createUser({ name, email, password }: { name: string, email: string, password: string }) {
     return fetchJson(`
     ${BASE}${URLS.users}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({ name, email, password }),
-    },
+        body: JSON.stringify({ name, email, password }),
+      },
     );
   },
 
   signin({ email, password }: { email: string, password: string }) {
     return fetchJson(`
     ${BASE}${URLS.signin}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({ email, password }),
-    },
+        body: JSON.stringify({ email, password }),
+      },
     );
   },
 
   getUser({ id }: { id: string }) {
     return fetchJson(`
     ${BASE}${URLS.users}/${id}`,
-    {
-      method: "GET",
-      headers: {
-        'Authorization': `Bearer ${store.userData.token}`,
-        'Accept': 'application/json',
-        "Content-Type": "application/json",
+      {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${store.userData.token}`,
+          'Accept': 'application/json',
+          "Content-Type": "application/json",
+        },
       },
-    },
     );
-
   },
 
+  getUserWords({ id }: { id: string }) {
+    return fetchJson(`
+    ${BASE}${URLS.users}/${id}/words`,
+      {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${store.userData.token}`,
+          'Accept': 'application/json',
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  },
+
+  creatUserWords({ id, wordId }: { id: string, wordId: string }) {
+    return fetchJson(`
+    ${BASE}${URLS.users}/${id}/words/${wordId}`,
+      {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${store.userData.token}`,
+          'Accept': 'application/json',
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          difficulty: "true",
+          optional: {}
+        }),
+      },
+    );
+  },
+
+  deleteUserWords({ id, wordId }: { id: string, wordId: string }) {
+    return fetchJson(`
+    ${BASE}${URLS.users}/${id}/words/${wordId}`,
+      {
+        method: "DELETE",
+        headers: {
+          'Authorization': `Bearer ${store.userData.token}`,
+          'Accept': 'application/json',
+          "Content-Type": "application/json",
+        },
+
+      },
+    );
+  },
 }
 
-
-/*
-{
-  "name": "string",
-  "email": "string",
-  "password": "string"
-}
-*/
 
