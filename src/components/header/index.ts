@@ -18,25 +18,25 @@ const template = () => `
 
 export default class Header extends Component {
 
-    private components!: {
-        [componentName: string]: IComponent
-    };
+  private components!: {
+    [componentName: string]: IComponent
+  };
 
-    initComponents() {
+  initComponents() {
 
-        this.components = {
-            logo: new Logo(),
-            nav: new Nav(),
-            auth: new Auth()
-        }
-
-        super.renderComponents(this.components)
+    this.components = {
+      logo: new Logo(),
+      nav: new Nav(),
+      auth: new Auth()
     }
 
-    render() {
-        super.render(template())
-        this.initComponents()
-        new HeaderAdaptive(this)
-        return this.element
-    }
+    super.renderComponents(this.components)
+  }
+
+  render() {
+    super.render(template())
+    this.initComponents()
+    new HeaderAdaptive(this)
+    return this.element
+  }
 }
