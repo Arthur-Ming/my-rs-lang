@@ -6,7 +6,6 @@ import { IComponent } from "../../interfaces";
 import store from "../../store";
 import sprintEntry from "./sprint-entry";
 
-
 const template = () => `
 <div class="sprint">
   <div class="sprint__content wrapper__box" data-element='sprint-content'></div>

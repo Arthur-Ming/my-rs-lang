@@ -17,10 +17,6 @@ const template = (isLevelSelected: boolean, entry: string) => `
 </div>
 </div>
 `
-/*
-<h4 class="sprint-entry__title">Спринт</h4>
-<h5 class="sprint-entry__description">Попробуйте перевести как можно больше слов за 60 секунд</h5>
-*/
 
 export default class SprintEntry extends Component implements IComponent {
 
@@ -55,7 +51,6 @@ export default class SprintEntry extends Component implements IComponent {
 
   constructor({ entry }: { entry: string }) {
     super()
-    console.log(store.sprintMode)
     this.isLevelSelected = (store.sprintMode === 'textbook') ? true : false
     this.entry = entry
   }

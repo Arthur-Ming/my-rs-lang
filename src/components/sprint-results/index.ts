@@ -4,20 +4,6 @@ import { CardType } from "../../types";
 import withLouding from "../../utils/withLouding";
 import SprintResultsItems from "./sprint-results-items";
 
-/* const getItem = ({word, translate, audio}) =>`
-<li class="sprint-results__item sprint-results-item">
-  <div class="sprint-results-item__audio">
-    <svg class="audio" viewBox="0 0 128 128">
-      <use xlink:href='assets/svg/sprite.svg#audio' />
-    </svg>
-  </div>
-  <div class="sprint-results-item__word">Cat</div>
-  <span class="sprint-results-item__dash"></span>
-  <div class="sprint-results-item__translate">Кошка</div>
-</li>
-` */
-
-
 const template = () => `
 <div class="sprint-results" data-element='sprint-results'>
   <div class="sprint-results__content wrapper__box">

@@ -56,12 +56,13 @@ const template = () => `
 export default class SprintGame extends Component {
   timer = new CircleTimer()
   data!: CardType[]
-  level: number = 1
-  isTrue: boolean = false
+  level = 1
+  isTrue = false
   pages: number[] = []
   answers: { [key: string]: boolean } = {}
   currentWordId!: string
-  score: number = 0
+  score = 0
+  continuousOfTrueAnswer = 0
   sound = new Audio()
   audio = new Audio()
 
@@ -97,7 +98,7 @@ export default class SprintGame extends Component {
     if (key === 'ArrowLeft') {
       isTrueAnswer = this.isTrue ? false : true
     }
-
+    isTrueAnswer ? this.continuousOfTrueAnswer += 1 : this.continuousOfTrueAnswer = 0
     this.setAnswer(this.currentWordId, isTrueAnswer)
     this.getRound()
   }
@@ -111,7 +112,9 @@ export default class SprintGame extends Component {
     if (target.dataset.element === 'sprint-answer-false')
       isTrueAnswer = this.isTrue ? false : true
     if (target.dataset.element === 'sprint-answer-true')
-      isTrueAnswer = this.isTrue ? true : false
+      isTrueAnswer = this.isTrue ? true : false;
+
+    isTrueAnswer ? this.continuousOfTrueAnswer += 1 : this.continuousOfTrueAnswer = 0
 
     this.setAnswer(this.currentWordId, isTrueAnswer)
     this.getRound()
@@ -132,12 +135,13 @@ export default class SprintGame extends Component {
       [id]: answer
     }
     if (answer) {
-      this.score += 10;
+      const points = (this.continuousOfTrueAnswer >= 4) ? 20 : 10
+      this.score += points;
       this.setScore()
       this.ok()
       this.subElements &&
         new ShowScore({
-          message: '+10',
+          message: `+${points}`,
           duration: 3000
         }).show(this.subElements['sprint-content']);
 
@@ -183,7 +187,7 @@ export default class SprintGame extends Component {
         }).show();
       this.onGameOver()
     }
-    console.log(store.sprintMode)
+
     if (store.sprintMode === 'textbook') {
 
       page = this.getPrevPage() ?? 0
@@ -192,7 +196,7 @@ export default class SprintGame extends Component {
       page = this.getRandomPage()
 
     this.pages.push(page)
-    console.log(page)
+
     return page
   }
 
@@ -325,8 +329,5 @@ export default class SprintGame extends Component {
 
     this.element &&
       window.addEventListener('keydown', this.onKeyDown as unknown as EventListener)
-
   }
-
-
 }
